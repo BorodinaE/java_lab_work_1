@@ -6,10 +6,10 @@ public class Student {
     //average_mark - средняя оценка по всем предметам ученика
     // grades массив с оценками по каким-то предметам (1 предмет 1 оценка)
 
-    private final String name;
-    private final String grup;
-    private final int course;
-    private final int[] grades;
+    private String name;
+    private String grup;
+    private int course;
+    private int[] grades;
 
     public Student(String name, String grup, int course, int[] grades) {
         this.name = name;
@@ -17,6 +17,9 @@ public class Student {
         this.course = course;
         this.grades = grades;
     }
+
+
+
 
     public int[] getGrades() {
         return grades;
@@ -34,6 +37,7 @@ public class Student {
             if (!Student.CheckGrades(students.get(i).grades) ){
                 students.remove(i);
                 lengthOfStudents--;
+                students.get(i).course++;
             }
             else i++;
         }
@@ -50,7 +54,7 @@ public class Student {
 
     public static void print(ArrayList<Student> students){
         for (Student student : students) {
-            System.out.print(student.name+ " ");
+            System.out.print(student.name+ " " + student.course + " ");
         }
         System.out.println();
     }
