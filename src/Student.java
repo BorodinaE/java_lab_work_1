@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Student {
@@ -5,10 +6,10 @@ public class Student {
     //average_mark - средняя оценка по всем предметам ученика
     // grades массив с оценками по каким-то предметам (1 предмет 1 оценка)
 
-    private String name;
-    private String grup;
-    private int course;
-    private int[] grades;
+    private final String name;
+    private final String grup;
+    private final int course;
+    private final int[] grades;
 
     public Student(String name, String grup, int course, int[] grades) {
         this.name = name;
@@ -21,21 +22,36 @@ public class Student {
         return grades;
     }
 
-    boolean CheckGrades(int[] grades){
-        // если функция возвращает true значит студент переходит на следующий курс
-        // если функция возвращает false то студент будет удалён из списка обучающихся
-
+    public static boolean CheckGrades(int[] grades){ // если функция возвращает true значит студент переходит на следующий курс
         float average_mark = ((Arrays.stream(grades).sum()) / (float)grades.length);
-
-        if (average_mark >= 3) return true;
-        else return false;
+        return average_mark >= 3;
     }
 
-    void printStudents(Student[] students, int course){
+    public static void deleteStudents(ArrayList<Student> students){
+        int lengthOfStudents = students.size();
+        int i = 0;
+        while (i < lengthOfStudents){
+            if (!Student.CheckGrades(students.get(i).grades) ){
+                students.remove(i);
+                lengthOfStudents--;
+            }
+            else i++;
+        }
+
+    }
+
+    public static void printStudents(ArrayList<Student> students, int course){
         for (Student student : students) {
             if (student.course == course) {
-                System.out.println(student);
+                System.out.println(student.name);
             }
         }
+    }
+
+    public static void print(ArrayList<Student> students){
+        for (Student student : students) {
+            System.out.print(student.name+ " ");
+        }
+        System.out.println();
     }
 }
